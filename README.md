@@ -2,7 +2,7 @@
 P5 Openclassrooms : "Utilisez les données publiques de l'OpenFoodFacts"
 
 ## Specifications
-###User story description:
+### User story description:
 
 User has following choices on terminal:
 
@@ -20,7 +20,7 @@ System propose a substitute of chosen food, its description, where to buy it (if
 User may choose to save this substitute in database.
 
  
-###Functionalities
+### Functionalities
 
 
 * Food search in Openfoodfacts database.
