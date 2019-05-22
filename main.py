@@ -1,11 +1,17 @@
 # coding: utf-8
 """ This is the main program"""
 
-import requests
-import json
+from category import *
 
-data_cookies = requests.get("https://world.openfoodfacts.org/cgi/search.pl?tagtype_0=categories&tag_contains_0=contains&tag_0=Cookies&tagtype_1=languages&tag_contains_1=contains&tag_1=fr&page_size=20&search_simple=1&action=process&json=1").json()
-for index, value in enumerate(data_cookies["products"]):
-    print(index, value['product_name_fr'])
+category_list = ["cookies", "steaks", "nouilles", "snacks"]
+# category_list = ["cookies", "steaks"]
+
+for category in category_list:
+    instance_cat = Category(category)
+    instance_cat.fill_sql_table_category()
+    instance_cat.find_sql_category_id()
+    instance_cat.generate_products_of_category()
+
+
 
 
