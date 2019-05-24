@@ -4,6 +4,8 @@
 from category import *
 from tables import *
 
+# print_sql("SELECT * FROM product", ())
+
 Table()
 
 category_list = ["cookies", "steaks", "nouilles", "snacks"]

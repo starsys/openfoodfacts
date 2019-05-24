@@ -1,8 +1,6 @@
 # coding: utf-8
 
 import requests
-import mysql.connector
-from mysql.connector import errorcode
 from sql_requests import *
 
 
@@ -18,7 +16,12 @@ class Category:
         self.generate_products_of_category()
 
     def find_sql_category_id(self):
-        self.sql_category_id = sql_select("SELECT id FROM category WHERE name=%s", (self.name,))[0][0]
+        self.sql_category_id = make_query("SELECT id FROM category WHERE name=%s", (self.name,))[0][0]
+        print(self.sql_category_id)
+        # self.sql_category_id = sql_select("SELECT id FROM category ORDER BY id DESC LIMIT 1", ())
+        # self.sql_category_id = sql_select("SELECT MAX(id) FROM category")
+
+
 
 
     def generate_products_of_category(self):
@@ -29,13 +32,13 @@ class Category:
                 else:
                     store = "Aucun magasin ne propose ce produit"
 
-                sql_insert(""" INSERT INTO `product`
+                make_query(""" INSERT INTO `product`
                                                       (`name`, `category_ID`,`nutrition_grades`, `store`, `description`, `url`) VALUES (%s,%s,%s,%s,%s,%s)""",
                             (value['product_name_fr'], self.sql_category_id, value["nutrition_grades"], store,
-                             value["generic_name"], value["url"]))
+                             value["generic_name"], value["url"]), method = "insert")
 
 
     def fill_sql_table_category(self):
-        sql_insert(""" INSERT INTO `category`
-                                  (`name`, `url`) VALUES (%s,%s)""", (self.name, self.url))
+        make_query(""" INSERT INTO `category`
+                                  (`name`, `url`) VALUES (%s,%s)""", (self.name, self.url), method = "insert")
 

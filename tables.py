@@ -1,7 +1,6 @@
 # coding: utf-8
 
 import mysql.connector
-from mysql.connector import errorcode
 
 #############################################################################
 #This class create "P5" Database and [Category, Product, Substituted] tables#

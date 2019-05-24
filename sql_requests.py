@@ -1,47 +1,35 @@
 # coding: utf-8
 
 import mysql.connector
-from mysql.connector import errorcode
+from config import *
 
-def sql_insert(sql_query, tuple):
+
+def make_query(sql_query, param, method="select"):
     try:
-        connection = mysql.connector.connect(host='localhost',
-                                             database='p5',
-                                             user='root',
-                                             password='Jestercapstarsys1')
+        connection = mysql.connector.connect(host=HOST,
+                                             database=DATABASE,
+                                             user=USER,
+                                             password=PASSWORD)
         cursor = connection.cursor()
-        cursor.execute(sql_query, tuple)
-        connection.commit()
-        print("Record inserted successfully into table")
+        cursor.execute(sql_query, param)
+
+        # insert SQL request
+        if method == "insert":
+            connection.commit()
+            print("Record inserted successfully into table")
+
+        # select SQL request
+        if method == "select":
+            result = cursor.fetchall()
+            print("SELECT instruction OK")
+            return result
+
     except mysql.connector.Error as error:
         connection.rollback()  # rollback if any exception occured
         print("Failed inserting record into {}".format(error))
-    # closing database connection.
 
     finally:
         if connection.is_connected():
-            cursor.close()
-            connection.close()
-            print("MySQL connection is closed")
-
-def sql_select(sql_query, tuple):
-    try:
-        connection = mysql.connector.connect(host='localhost',
-                                             database='p5',
-                                             user='root',
-                                             password='Jestercapstarsys1')
-        cursor = connection.cursor()
-        cursor.execute(sql_query, tuple)
-        result = cursor.fetchall()
-        print("SELECT instruction OK")
-        return result
-
-    except mysql.connector.Error as error:
-        connection.rollback()  # rollback if any exception occured
-        print("Failed to get record from database: {}".format(error))
-    finally:
-        # closing database connection.
-        if (connection.is_connected()):
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
