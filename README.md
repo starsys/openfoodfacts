@@ -27,4 +27,13 @@ User may choose to save this substitute in database.
 * User interact with system in terminal (or GUI if wanted)
 * If user type unexpected character (anything other than a number), system will ask the question again.
 * Search must be applied on a Mysql database.
+
+### Requirements
+You need to create a config.py file (at the root) with your Mysql database credentials like this template:  
+  
+
+HOST='ip_address_of_the_mysql_server'  
+DATABASE='database_name'  
+USER='your_user'  
+PASSWORD='your_password'
     
