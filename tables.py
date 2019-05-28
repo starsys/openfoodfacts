@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import mysql.connector
+from sql_requests import *
 
 #############################################################################
 #This class create "P5" Database and [Category, Product, Substituted] tables#
@@ -9,12 +10,7 @@ import mysql.connector
 class Table:
 
     def __init__(self):
-        try:
-            connection = mysql.connector.connect(host='localhost',
-                                                 database='p5',
-                                                 user='root',
-                                                 password='Jestercapstarsys1')
-            sql_insert_query = """
+        make_query("""
             DROP DATABASE IF EXISTS p5;
             CREATE DATABASE p5 CHARACTER SET 'utf8';
             USE p5;
@@ -44,16 +40,4 @@ class Table:
                 CONSTRAINT fk_substituted_product_ID FOREIGN KEY (substituted_product_ID) REFERENCES product(id) ON DELETE CASCADE
             )
             ENGINE=INNODB DEFAULT CHARSET=utf8;
-            """
-            cursor = connection.cursor()
-            cursor.execute(sql_insert_query)
-
-        except mysql.connector.Error as error:
-            connection.rollback()  # rollback if any exception occured
-            print("Failed to get record from database: {}".format(error))
-        finally:
-            # closing database connection.
-            if (connection.is_connected()):
-                cursor.close()
-                connection.close()
-                print("MySQL connection is closed")
+            SELECT %s;""", ("",), method = "creation") # "make_query method" requires a tuple paramater."SELECT %s" instruction is useless, just done to use the empty given paramater ("",)

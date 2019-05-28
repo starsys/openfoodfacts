@@ -13,7 +13,11 @@ def make_query(sql_query, param, method="select"):
         cursor = connection.cursor()
         cursor.execute(sql_query, param)
 
-        # insert SQL request
+        # tables creation SQL request
+        if method == "creation":
+            print("Creation OK")
+
+        # insertion SQL request
         if method == "insert":
             connection.commit()
             print("Record inserted successfully into table")
@@ -21,7 +25,7 @@ def make_query(sql_query, param, method="select"):
         # select SQL request
         if method == "select":
             result = cursor.fetchall()
-            print("SELECT instruction OK")
+            # print("SELECT instruction OK")
             return result
 
     except mysql.connector.Error as error:
@@ -32,4 +36,4 @@ def make_query(sql_query, param, method="select"):
         if connection.is_connected():
             cursor.close()
             connection.close()
-            print("MySQL connection is closed")
+            # print("MySQL connection is closed")

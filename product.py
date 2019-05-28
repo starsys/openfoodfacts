@@ -19,7 +19,7 @@ class Product:
 
     def find_sql_category_id(self):
         self.sql_category_id = make_query("SELECT id FROM category WHERE name=%s", (self.category_name,))[0][0]
-        print(self.sql_category_id)
+        print("La categorie :" + " \"" + self.category_name + "\"" + " correspond à l'ID : " + str(self.sql_category_id) + " dans la table SQL")
 
     def checkdata_for_sql_insertion(self):
         for value in (self.json["products"]):
