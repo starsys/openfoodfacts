@@ -4,13 +4,12 @@
 from category import *
 from tables import *
 from sql_requests import *
-from pprint import *
 
 
 # Table()
 #
-# # category_list = ["cookies", "steaks", "nouilles", "snacks"]
-# category_list = ["cookies", "steaks"]
+# category_list = ["cookies", "steaks", "nouilles", "snacks"]
+# # category_list = ["cookies", "steaks"]
 #
 # for category in category_list:
 #     Category(category)
@@ -39,6 +38,7 @@ def user_menu(input_text, query, param, presentation = "short"):
 
 
 def print_sql():
+    choice3 = "q"
     print("Ce programme vous propose de substituer un aliment par un équivalent plus sain. Voici les catégories que vous pouvez parcourir : \n")
     choice1 = user_menu("Veuillez choisir une catégorie en saisissant son ID puis entrée : ", "SELECT * FROM category; SELECT %s", ("",))
 
@@ -49,8 +49,7 @@ def print_sql():
     nutrition_grade_selected_product = make_query("SELECT nutrition_grades FROM product WHERE id = %s", (choice2,))[0][0]
 
     product_name = make_query("SELECT name FROM product WHERE id = %s", (choice2,))[0][0]
-    if not make_query("SELECT * FROM product WHERE nutrition_grades < %s AND category_ID = %s",
-                          (nutrition_grade_selected_product, choice1)):
+    if not make_query("SELECT * FROM product WHERE nutrition_grades < %s AND category_ID = %s", (nutrition_grade_selected_product, choice1)):
         print("Il n'existe pas de produit plus sain que", product_name, " dans la catégorie", category_name)
     else:
         print("Vous pourriez remplacer cet aliment par : \n")
