@@ -1,7 +1,7 @@
 # coding: utf-8
 
-import requests
 from product import *
+
 
 class Category:
 
@@ -14,9 +14,7 @@ class Category:
 
     def fill_sql_table_category(self):
         make_query(""" INSERT INTO `category`
-                                  (`name`, `url`) VALUES (%s,%s)""", (self.name, self.url), method = "insert")
+                                  (`name`, `url`) VALUES (%s,%s)""", (self.name, self.url), method="insert")
 
     def generate_products_of_category(self):
         Product(self.name)
-
-

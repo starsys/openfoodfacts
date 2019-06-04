@@ -2,7 +2,8 @@
 """ This is the main program"""
 
 from check_database import *
+from terminal_interface import *
 
-Check_database()
-Terminal_interface() # display of user interface in terminal
-
+CheckDatabase()  # check if tables "category", "product" and "substituted" are already existing and correspond \
+# to the content of "categories.txt". If not or if data is corrupted, tables are created / filled correctly
+TerminalInterface()  # display of user interface in terminal

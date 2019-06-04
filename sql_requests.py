@@ -3,7 +3,8 @@
 import mysql.connector
 from config import *
 
-def make_simple_query(sql_query, method = "delete"):
+
+def make_simple_query(sql_query, method="delete"):
     try:
         connection = mysql.connector.connect(host=HOST,
                                              database=DATABASE,
@@ -35,6 +36,7 @@ def make_simple_query(sql_query, method = "delete"):
         if connection.is_connected():
             cursor.close()
             connection.close()
+
 
 def make_query(sql_query, param, method="select"):
     try:

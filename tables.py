@@ -1,11 +1,11 @@
 # coding: utf-8
 
-import mysql.connector
 from sql_requests import *
 
 #############################################################################
 #This class create "P5" Database and [Category, Product, Substituted] tables#
 #############################################################################
+
 
 class Table:
 
