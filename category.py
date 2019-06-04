@@ -8,7 +8,7 @@ class Category:
     def __init__(self, name):
         self.name = name
         self.url = "https://fr.openfoodfacts.org/categorie/"+self.name
-        self.sql_category_id = 0
+        # self.sql_category_id = 0
         self.fill_sql_table_category()
         self.generate_products_of_category()
 

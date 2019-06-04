@@ -10,7 +10,7 @@ from sql_requests import *
 class Table:
 
     def __init__(self):
-        make_query("""
+        make_simple_query("""
             DROP DATABASE IF EXISTS p5;
             CREATE DATABASE p5 CHARACTER SET 'utf8';
             USE p5;
@@ -40,4 +40,4 @@ class Table:
                 CONSTRAINT fk_substituted_product_ID FOREIGN KEY (substituted_product_ID) REFERENCES product(id) ON DELETE CASCADE
             )
             ENGINE=INNODB DEFAULT CHARSET=utf8;
-            SELECT %s;""", ("",), method = "creation") # "make_query method" requires a tuple paramater."SELECT %s" instruction is useless, just done to use the empty given paramater ("",)
+            """, method = "creation")
