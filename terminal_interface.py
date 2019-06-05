@@ -13,15 +13,17 @@ class TerminalInterface:
         id_list = []
         loop = 0
         while choice != "q" and (not choice.isdigit() or int(choice) not in id_list):
-            if loop != 0:
+            # check if input is a digit and correspond to an existing ID. Other inputs will be denied
+            if loop != 0: # Warning of incorrect input not displayed at first round
                 print("Veuillez saisir un identifiant existant ! \n")
             for row in make_query(query, param):
                 if presentation == "short":
-                    print("ID:", row[0], "|", row[1])
+                    print("ID:", row[0], "|", row[1]) # Only first 2 columns (ID and Name) will be shown (for category)
                 else:
                     print("ID:", row[0], "|", row[1], "|", "Description : ", row[5], "|", row[4], "|", row[6])
+                    # All columns will be shown
                 if loop == 0:
-                    id_list.append(row[0])
+                    id_list.append(row[0]) # List of all choosable IDs is built during first loop only
             loop += 1
             choice = input("\n" + input_text)
             print("-----------------------------------------------------------------------------------------------\
@@ -60,3 +62,4 @@ class TerminalInterface:
         if choice_substituted != "q":
             substituted_name = make_query("SELECT name FROM product WHERE id = %s", (choice_substituted,))[0][0]
             print(substituted_name)
+            # from substituted import *
