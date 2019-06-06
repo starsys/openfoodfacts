@@ -1,12 +1,13 @@
 # coding: utf-8
 
 from sql_requests import *
+from substituted import *
 
 
 class TerminalInterface:
 
-    def __init__(self):
-        self.print_sql()
+    # def __init__(self):
+    #     self.print_sql()
 
     def user_menu(self, input_text, query, param, presentation="short"):
         choice = ""
@@ -35,6 +36,9 @@ class TerminalInterface:
 
     def print_sql(self):
         choice_substituted = "q"
+        view_substituted = input("Souhaitez vous visualiser les produits que vous avez déjà substitué ? o/n \n")
+        if view_substituted == "o":
+            self.print_substituted()
         print("Ce programme vous propose de substituer un aliment par un équivalent plus sain. "
               "Voici les catégories que vous pouvez parcourir : \n")
         choice_category = self.user_menu("Veuillez choisir une catégorie en saisissant son ID puis entrée : ",
@@ -61,5 +65,15 @@ class TerminalInterface:
                                                 (nutrition_grade_selected_product, choice_category), "long")
         if choice_substituted != "q":
             substituted_name = make_query("SELECT name FROM product WHERE id = %s", (choice_substituted,))[0][0]
-            print(substituted_name)
-            # from substituted import *
+            Substituted(choice_product, choice_substituted)
+            print("Cette substitution a bien été enregistrée en base de données")
+
+    def print_substituted(self):
+        for couple in make_simple_query("SELECT original_product_ID, substituted_product_ID FROM substituted",
+                                        method="select"):
+            original_name = make_query("SELECT name FROM product WHERE id = %s", (couple[0],), method="select")[0][0]
+            substituted_data = make_query("SELECT name, description, store, url FROM product WHERE id = %s", (couple[1],), method="select")[0]
+            substituted_name = substituted_data[0]
+            print("\"" + original_name + "\"" + " a été remplacé par " + "\"" + substituted_data[0] + "\"" + " " + substituted_data[1] + " " + substituted_data[2] + " " + substituted_data[3])
+        print("-----------------------------------------------------------------------------------------------\
+            --------")

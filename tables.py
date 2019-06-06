@@ -10,8 +10,7 @@ from sql_requests import *
 class Table:
 
     def __init__(self):
-        make_simple_query("""
-            DROP DATABASE IF EXISTS p5;
+        make_simple_query("""DROP DATABASE IF EXISTS p5;
             CREATE DATABASE p5 CHARACTER SET 'utf8';
             USE p5;
             CREATE TABLE Category (
@@ -37,7 +36,8 @@ class Table:
                 original_product_ID SMALLINT UNSIGNED NOT NULL,
                 substituted_product_ID SMALLINT UNSIGNED NOT NULL,
                 CONSTRAINT fk_original_product_ID FOREIGN KEY (original_product_ID) REFERENCES product(id) ON DELETE CASCADE,
-                CONSTRAINT fk_substituted_product_ID FOREIGN KEY (substituted_product_ID) REFERENCES product(id) ON DELETE CASCADE
+                CONSTRAINT fk_substituted_product_ID FOREIGN KEY (substituted_product_ID) REFERENCES product(id) ON DELETE CASCADE,
+                UNIQUE INDEX ind_original_product_ID_substituted_product_ID (original_product_ID, substituted_product_ID)
             )
             ENGINE=INNODB DEFAULT CHARSET=utf8;
             """, method = "creation")
