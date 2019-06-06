@@ -10,7 +10,7 @@ from sql_requests import *
 class Table:
 
     def __init__(self):
-        make_simple_query("""DROP DATABASE IF EXISTS p5;
+        make_query("""DROP DATABASE IF EXISTS p5;
             CREATE DATABASE p5 CHARACTER SET 'utf8';
             USE p5;
             CREATE TABLE Category (

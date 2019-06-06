@@ -14,7 +14,7 @@ class Category:
 
     def fill_sql_table_category(self):
         make_query(""" INSERT INTO `category`
-                                  (`name`, `url`) VALUES (%s,%s)""", (self.name, self.url), method="insert")
+                                  (`name`, `url`) VALUES (%s,%s)""", (self.name, self.url), method="modify")
 
     def generate_products_of_category(self):
         Product(self.name)

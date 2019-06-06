@@ -1,5 +1,6 @@
 cookies
+patisseries
 steaks
 nouilles
 fromages
-patisseries
+snacks

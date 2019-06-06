@@ -13,18 +13,19 @@ class Product:
         self.url = ""
         self.description = ""
         self.store = ""
+        # get json file from openfoodfacts containing all products of category_name
         self.json = requests.get("https://world.openfoodfacts.org/cgi/search.pl?tagtype_0=categories&tag_contains_0=\
         contains&tag_0="+self.category_name+"&tagtype_1=languages&tag_contains_1=contains&tag_1=fr\
         &page_size=20&search_simple=1&action=process&json=1").json()
         self.find_sql_category_id()
         self.checkdata_for_sql_insertion()
 
-    def find_sql_category_id(self):
+    def find_sql_category_id(self): # find the sql_category_id based on its name
         self.sql_category_id = make_query("SELECT id FROM category WHERE name=%s", (self.category_name,))[0][0]
         print("La categorie :" + " \"" + self.category_name + "\"" + " correspond à l'ID : " + str(self.sql_category_id)
               + " dans la table SQL")
 
-    def checkdata_for_sql_insertion(self):
+    def checkdata_for_sql_insertion(self): # Ensure that required data is present and correspond to script requirements
         for value in (self.json["products"]):
             if "nutrition_grades" in value and "product_name_fr" in value and "generic_name" in value\
                     and "url" in value and value["nutrition_grades"] in ["a", "b", "c", "d", "e"]\
@@ -38,9 +39,9 @@ class Product:
                     self.store = "Disponible à " + value["stores"]
                 else:
                     self.store = "Aucun magasin ne propose ce produit"
-
+                # Insertion of all products into product table
                 make_query(""" INSERT INTO `product`
                                                       (`name`, `category_ID`,`nutrition_grades`, `store`, `description`,
                                                        `url`) VALUES (%s,%s,%s,%s,%s,%s)""",
                            (value['product_name_fr'], self.sql_category_id, value["nutrition_grades"], self.store,
-                            value["generic_name"], value["url"]), method="insert")
+                            value["generic_name"], value["url"]), method="modify")
