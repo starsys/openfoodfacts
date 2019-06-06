@@ -6,9 +6,8 @@ P5 Openclassrooms : "Utilisez les données publiques de l'OpenFoodFacts"
 
 User has following choices on terminal:
 
-1. Which food would you like to substitute ?
 1. Find my substituted foods.
-
+1. Which food would you like to substitute ?
 User choose option "1"
  
 System asks following questions to be answered by user:
@@ -24,9 +23,9 @@ User may choose to save this substitute in database.
 
 
 * Food search in Openfoodfacts database.
-* User interact with system in terminal (or GUI if wanted)
+* User interact with system in terminal
 * If user type unexpected character (anything other than a number), system will ask the question again.
-* Search must be applied on a Mysql database.
+* Search is applied on a Mysql database.
 
 ### Requirements
 You need to create a config.py file (at the root) with your Mysql database credentials like this template:  
@@ -36,4 +35,8 @@ HOST='ip_address_of_the_mysql_server'
 DATABASE='database_name'  
 USER='your_user'  
 PASSWORD='your_password'
+
+### Openfoodfacts API request parameters
+![Openfoodfacts API request parameters](API_query_parameters.JPG)
+
     

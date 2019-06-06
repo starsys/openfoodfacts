@@ -42,5 +42,5 @@ class Product:
                 make_query(""" INSERT INTO `product`
                                                       (`name`, `category_ID`,`nutrition_grades`, `store`, `description`,
                                                        `url`) VALUES (%s,%s,%s,%s,%s,%s)""",
-                             (value['product_name_fr'], self.sql_category_id, value["nutrition_grades"], self.store,
-                              value["generic_name"], value["url"]), method="insert")
+                           (value['product_name_fr'], self.sql_category_id, value["nutrition_grades"], self.store,
+                            value["generic_name"], value["url"]), method="insert")
