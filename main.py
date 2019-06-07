@@ -2,6 +2,7 @@
 
 from check_database import *
 from TerminalUI import *
+import requests
 
 
 if __name__ == '__main__':
